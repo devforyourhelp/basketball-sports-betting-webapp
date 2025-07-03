@@ -1,151 +1,118 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from '@/components/Header';
-import LiveTicker from '@/components/LiveTicker';
-import GameCard from '@/components/GameCard';
+import AuthModal from '@/components/AuthModal';
 import { useToast } from '@/hooks/use-toast';
-import { Clock, TrendingUp, Users } from 'lucide-react';
 
-interface LivePageProps {
-  onLoginClick: () => void;
-  onRegisterClick: () => void;
+interface LiveProps {
   isAuthenticated?: boolean;
   user?: { name: string; balance: number };
   onBetClick: (gameId: string, team: string, odds: string) => void;
 }
 
-const Live: React.FC<LivePageProps> = ({ 
-  onLoginClick, 
-  onRegisterClick, 
-  isAuthenticated, 
-  user, 
+const Live: React.FC<LiveProps> = ({ 
+  isAuthenticated = false, 
+  user,
   onBetClick 
 }) => {
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+  const [localIsAuthenticated, setLocalIsAuthenticated] = useState(isAuthenticated);
+  const [localUser, setLocalUser] = useState(user);
   const { toast } = useToast();
-  const [liveGames, setLiveGames] = useState([
-    {
-      id: '1',
-      team1: 'Los Angeles Lakers',
-      team2: 'Golden State Warriors',
-      team1Logo: '🟡',
-      team2Logo: '🔵',
-      odds1: '+150',
-      odds2: '-180',
-      time: 'Live Now',
-      isLive: true,
-      status: '2Q 8:32',
-      score: '62-58'
-    },
-    {
-      id: '2',
-      team1: 'Boston Celtics',
-      team2: 'Miami Heat',
-      team1Logo: '🟢',
-      team2Logo: '🔴',
-      odds1: '+120',
-      odds2: '-145',
-      time: 'Live Now',
-      isLive: true,
-      status: '3Q 5:15',
-      score: '89-85'
-    },
-    {
-      id: '3',
-      team1: 'Chicago Bulls',
-      team2: 'Detroit Pistons',
-      team1Logo: '🔴',
-      team2Logo: '🔵',
-      odds1: '-110',
-      odds2: '-110',
-      time: 'Live Now',
-      isLive: true,
-      status: '4Q 2:45',
-      score: '101-98'
-    },
-    {
-      id: '4',
-      team1: 'Phoenix Suns',
-      team2: 'Denver Nuggets',
-      team1Logo: '🟠',
-      team2Logo: '🟦',
-      odds1: '+180',
-      odds2: '-220',
-      time: 'Starting Soon',
-      isLive: false,
-      status: 'Pre-Game'
-    }
-  ]);
 
-  useEffect(() => {
-    // Simulate live odds updates
-    const interval = setInterval(() => {
-      setLiveGames(prev => prev.map(game => ({
-        ...game,
-        odds1: game.isLive ? (Math.random() > 0.5 ? `+${Math.floor(Math.random() * 200 + 100)}` : `-${Math.floor(Math.random() * 200 + 100)}`) : game.odds1,
-        odds2: game.isLive ? (Math.random() > 0.5 ? `+${Math.floor(Math.random() * 200 + 100)}` : `-${Math.floor(Math.random() * 200 + 100)}`) : game.odds2
-      })));
-    }, 3000);
+  const handleLoginClick = () => {
+    setAuthMode('login');
+    setIsAuthModalOpen(true);
+  };
 
-    return () => clearInterval(interval);
-  }, []);
+  const handleRegisterClick = () => {
+    setAuthMode('register');
+    setIsAuthModalOpen(true);
+  };
+
+  const handleAuth = (email: string, password: string, name?: string) => {
+    setLocalIsAuthenticated(true);
+    setLocalUser({
+      name: name || email.split('@')[0],
+      balance: 1000.00
+    });
+    setIsAuthModalOpen(false);
+    
+    toast({
+      title: "Welcome to CourtBet!",
+      description: `Successfully ${authMode === 'login' ? 'signed in' : 'created account'}`,
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background">
       <Header 
-        onLoginClick={onLoginClick}
-        onRegisterClick={onRegisterClick}
-        isAuthenticated={isAuthenticated}
-        user={user}
+        onLoginClick={handleLoginClick}
+        onRegisterClick={handleRegisterClick}
+        isAuthenticated={localIsAuthenticated}
+        user={localUser}
       />
       
-      <div className="pt-16">
-        <LiveTicker />
+      <div className="pt-20 container mx-auto px-4">
+        <h1 className="text-4xl font-bold mb-8">Live Games</h1>
         
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
-                <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-                Live Basketball Matches
-              </h1>
-              <p className="text-xl text-muted-foreground">Bet on live games with real-time odds</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Live games will be populated here */}
+          <div className="game-card p-6">
+            <div className="flex justify-between items-center mb-4">
+              <span className="text-sm bg-red-500 text-white px-2 py-1 rounded-full">LIVE</span>
+              <span className="text-sm text-muted-foreground">Q2 8:45</span>
             </div>
-
-            {/* Live Stats Bar */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-              <div className="game-card text-center p-6">
-                <Clock className="w-8 h-8 text-primary mx-auto mb-2" />
-                <div className="text-2xl font-bold text-primary">{liveGames.filter(g => g.isLive).length}</div>
-                <p className="text-muted-foreground">Live Games</p>
-              </div>
-              <div className="game-card text-center p-6">
-                <TrendingUp className="w-8 h-8 text-primary mx-auto mb-2" />
-                <div className="text-2xl font-bold text-primary">24/7</div>
-                <p className="text-muted-foreground">Live Betting</p>
-              </div>
-              <div className="game-card text-center p-6">
-                <Users className="w-8 h-8 text-primary mx-auto mb-2" />
-                <div className="text-2xl font-bold text-primary">15,420</div>
-                <p className="text-muted-foreground">Active Bettors</p>
-              </div>
-            </div>
-
-            {/* Live Games Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {liveGames.map((game) => (
-                <div key={game.id} className="relative">
-                  {game.isLive && (
-                    <div className="absolute -top-2 -right-2 z-10 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold animate-pulse">
-                      LIVE
-                    </div>
-                  )}
-                  <GameCard game={game} onBetClick={onBetClick} />
+            
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                    LAL
+                  </div>
+                  <span className="font-semibold">Lakers</span>
                 </div>
-              ))}
+                <div className="text-right">
+                  <div className="text-lg font-bold">67</div>
+                  <button 
+                    onClick={() => onBetClick('live-1', 'Lakers', '-2.5')}
+                    className="text-sm bg-primary text-primary-foreground px-2 py-1 rounded hover:bg-primary/90"
+                  >
+                    -2.5
+                  </button>
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                    GSW
+                  </div>
+                  <span className="font-semibold">Warriors</span>
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-bold">72</div>
+                  <button 
+                    onClick={() => onBetClick('live-1', 'Warriors', '+2.5')}
+                    className="text-sm bg-primary text-primary-foreground px-2 py-1 rounded hover:bg-primary/90"
+                  >
+                    +2.5
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        </section>
+        </div>
       </div>
+
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        mode={authMode}
+        onModeChange={setAuthMode}
+        onAuth={handleAuth}
+      />
     </div>
   );
 };

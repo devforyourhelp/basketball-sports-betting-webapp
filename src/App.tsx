@@ -29,14 +29,6 @@ const App = () => {
     console.log('Bet clicked:', { gameId, team, odds });
   };
 
-  const handleLoginClick = () => {
-    console.log('Login clicked');
-  };
-
-  const handleRegisterClick = () => {
-    console.log('Register clicked');
-  };
-
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -49,8 +41,6 @@ const App = () => {
               path="/live" 
               element={
                 <Live 
-                  onLoginClick={handleLoginClick}
-                  onRegisterClick={handleRegisterClick}
                   isAuthenticated={isAuthenticated}
                   user={user}
                   onBetClick={handleBetClick}
@@ -61,8 +51,6 @@ const App = () => {
               path="/matches" 
               element={
                 <Matches 
-                  onLoginClick={handleLoginClick}
-                  onRegisterClick={handleRegisterClick}
                   isAuthenticated={isAuthenticated}
                   user={user}
                   onBetClick={handleBetClick}
@@ -73,14 +61,11 @@ const App = () => {
               path="/leaderboard" 
               element={
                 <Leaderboard 
-                  onLoginClick={handleLoginClick}
-                  onRegisterClick={handleRegisterClick}
                   isAuthenticated={isAuthenticated}
                   user={user}
                 />
               } 
             />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
