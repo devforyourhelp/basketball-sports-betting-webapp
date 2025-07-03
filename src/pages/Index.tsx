@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import LiveTicker from '@/components/LiveTicker';
 import HeroSection from '@/components/HeroSection';
