@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,27 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Basketball theme colors
+				court: {
+					50: '#fff7ed',
+					100: '#ffedd5',
+					200: '#fed7aa',
+					300: '#fdba74',
+					400: '#fb923c',
+					500: '#f97316',
+					600: '#ea580c',
+					700: '#c2410c',
+					800: '#9a3412',
+					900: '#7c2d12',
+				},
+				win: {
+					DEFAULT: '#10b981',
+					light: '#34d399',
+				},
+				lose: {
+					DEFAULT: '#ef4444',
+					light: '#f87171',
 				}
 			},
 			borderRadius: {
@@ -84,11 +106,58 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(10px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
+				},
+				'slide-in-right': {
+					'0%': { transform: 'translateX(100%)' },
+					'100%': { transform: 'translateX(0)' }
+				},
+				'basketball-bounce': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
+				},
+				'odds-flash-up': {
+					'0%': { backgroundColor: 'transparent' },
+					'50%': { backgroundColor: '#10b981' },
+					'100%': { backgroundColor: 'transparent' }
+				},
+				'odds-flash-down': {
+					'0%': { backgroundColor: 'transparent' },
+					'50%': { backgroundColor: '#ef4444' },
+					'100%': { backgroundColor: 'transparent' }
+				},
+				'pulse-glow': {
+					'0%, 100%': { 
+						boxShadow: '0 0 5px rgba(249, 115, 22, 0.5)' 
+					},
+					'50%': { 
+						boxShadow: '0 0 20px rgba(249, 115, 22, 0.8)' 
+					}
+				},
+				'ticker-scroll': {
+					'0%': { transform: 'translateX(100%)' },
+					'100%': { transform: 'translateX(-100%)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.3s ease-out',
+				'slide-in-right': 'slide-in-right 0.3s ease-out',
+				'basketball-bounce': 'basketball-bounce 2s ease-in-out infinite',
+				'odds-flash-up': 'odds-flash-up 0.5s ease-out',
+				'odds-flash-down': 'odds-flash-down 0.5s ease-out',
+				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+				'ticker-scroll': 'ticker-scroll 30s linear infinite'
 			}
 		}
 	},
