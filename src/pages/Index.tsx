@@ -133,6 +133,150 @@ const Index = () => {
         <HeroSection onGetStarted={handleRegisterClick} />
         <FeaturedGames onBetClick={handleBetClick} />
         <StatsSection />
+        
+        {/* New Sections for Longer Landing Page */}
+        
+        {/* How It Works Section */}
+        <section className="py-16 bg-secondary/10">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
+              <p className="text-xl text-muted-foreground">Get started in just 3 simple steps</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="text-center animate-fade-in" style={{animationDelay: '0.2s'}}>
+                <div className="w-16 h-16 basketball-gradient rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
+                  1
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Sign Up</h3>
+                <p className="text-muted-foreground">Create your account in seconds and get a welcome bonus</p>
+              </div>
+              
+              <div className="text-center animate-fade-in" style={{animationDelay: '0.4s'}}>
+                <div className="w-16 h-16 basketball-gradient rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
+                  2
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Choose Games</h3>
+                <p className="text-muted-foreground">Browse live and upcoming games with real-time odds</p>
+              </div>
+              
+              <div className="text-center animate-fade-in" style={{animationDelay: '0.6s'}}>
+                <div className="w-16 h-16 basketball-gradient rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
+                  3
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Place Bets & Win</h3>
+                <p className="text-muted-foreground">Place your bets and watch your winnings grow</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose CourtBet?</h2>
+              <p className="text-xl text-muted-foreground">The ultimate basketball betting experience</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="game-card text-center p-6">
+                <div className="text-4xl mb-4">⚡</div>
+                <h3 className="text-lg font-semibold mb-2">Instant Payouts</h3>
+                <p className="text-muted-foreground text-sm">Get your winnings instantly with our fast payout system</p>
+              </div>
+              
+              <div className="game-card text-center p-6">
+                <div className="text-4xl mb-4">🔒</div>
+                <h3 className="text-lg font-semibold mb-2">Secure & Safe</h3>
+                <p className="text-muted-foreground text-sm">Bank-grade security keeps your funds and data protected</p>
+              </div>
+              
+              <div className="game-card text-center p-6">
+                <div className="text-4xl mb-4">📱</div>
+                <h3 className="text-lg font-semibold mb-2">Mobile Ready</h3>
+                <p className="text-muted-foreground text-sm">Bet anywhere, anytime with our responsive mobile design</p>
+              </div>
+              
+              <div className="game-card text-center p-6">
+                <div className="text-4xl mb-4">🎁</div>
+                <h3 className="text-lg font-semibold mb-2">Daily Bonuses</h3>
+                <p className="text-muted-foreground text-sm">Earn daily bonuses and special promotions</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className="py-16 bg-card">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Users Say</h2>
+              <p className="text-xl text-muted-foreground">Join thousands of satisfied bettors</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="game-card p-6">
+                <div className="flex items-center mb-4">
+                  <div className="text-2xl mr-3">⭐⭐⭐⭐⭐</div>
+                </div>
+                <p className="text-muted-foreground mb-4">"Best betting platform I've used. The live odds are incredibly accurate and payouts are super fast!"</p>
+                <div className="flex items-center">
+                  <div className="text-xl mr-3">🏀</div>
+                  <div>
+                    <p className="font-semibold">Mike Johnson</p>
+                    <p className="text-sm text-muted-foreground">Professional Bettor</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="game-card p-6">
+                <div className="flex items-center mb-4">
+                  <div className="text-2xl mr-3">⭐⭐⭐⭐⭐</div>
+                </div>
+                <p className="text-muted-foreground mb-4">"Love the user interface and the live betting feature. Made $5,000 last month!"</p>
+                <div className="flex items-center">
+                  <div className="text-xl mr-3">💪</div>
+                  <div>
+                    <p className="font-semibold">Sarah Davis</p>
+                    <p className="text-sm text-muted-foreground">Top Bettor</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="game-card p-6">
+                <div className="flex items-center mb-4">
+                  <div className="text-2xl mr-3">⭐⭐⭐⭐⭐</div>
+                </div>
+                <p className="text-muted-foreground mb-4">"Customer support is amazing and the mobile app works perfectly. Highly recommend!"</p>
+                <div className="flex items-center">
+                  <div className="text-xl mr-3">🎯</div>
+                  <div>
+                    <p className="font-semibold">Alex Chen</p>
+                    <p className="text-sm text-muted-foreground">Daily User</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Call to Action Section */}
+        <section className="py-16 basketball-gradient">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Ready to Start Winning?</h2>
+            <p className="text-xl text-white/90 mb-8">Join CourtBet today and get a $100 welcome bonus!</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button onClick={handleRegisterClick} size="lg" className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-3">
+                Get Started Now
+              </Button>
+              <Button variant="outline" size="lg" className="text-lg px-8 py-3 border-white text-white hover:bg-white hover:text-primary">
+                Learn More
+              </Button>
+            </div>
+          </div>
+        </section>
       </div>
 
       <AuthModal

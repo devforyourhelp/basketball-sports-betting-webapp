@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { User, Menu, Bell, Wallet } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 interface HeaderProps {
   onLoginClick: () => void;
@@ -17,25 +18,36 @@ const Header: React.FC<HeaderProps> = ({
   user 
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const isActiveRoute = (path: string) => {
+    return location.pathname === path;
+  };
+
+  const navLinkClass = (path: string) => {
+    return `text-foreground hover:text-primary transition-colors ${
+      isActiveRoute(path) ? 'text-primary font-semibold' : ''
+    }`;
+  };
 
   return (
     <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 basketball-gradient rounded-full flex items-center justify-center">
               <span className="text-white font-bold text-sm">🏀</span>
             </div>
             <span className="text-xl font-bold text-primary">CourtBet</span>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
-            <a href="#home" className="text-foreground hover:text-primary transition-colors">Home</a>
-            <a href="#live" className="text-foreground hover:text-primary transition-colors">Live</a>
-            <a href="#matches" className="text-foreground hover:text-primary transition-colors">Matches</a>
-            <a href="#leaderboard" className="text-foreground hover:text-primary transition-colors">Leaderboard</a>
+            <Link to="/" className={navLinkClass('/')}>Home</Link>
+            <Link to="/live" className={navLinkClass('/live')}>Live</Link>
+            <Link to="/matches" className={navLinkClass('/matches')}>Matches</Link>
+            <Link to="/leaderboard" className={navLinkClass('/leaderboard')}>Leaderboard</Link>
           </nav>
 
           {/* User Actions */}
@@ -88,10 +100,10 @@ const Header: React.FC<HeaderProps> = ({
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 border-t border-border pt-4">
             <nav className="flex flex-col space-y-3">
-              <a href="#home" className="text-foreground hover:text-primary transition-colors">Home</a>
-              <a href="#live" className="text-foreground hover:text-primary transition-colors">Live</a>
-              <a href="#matches" className="text-foreground hover:text-primary transition-colors">Matches</a>
-              <a href="#leaderboard" className="text-foreground hover:text-primary transition-colors">Leaderboard</a>
+              <Link to="/" className={navLinkClass('/')}>Home</Link>
+              <Link to="/live" className={navLinkClass('/live')}>Live</Link>
+              <Link to="/matches" className={navLinkClass('/matches')}>Matches</Link>
+              <Link to="/leaderboard" className={navLinkClass('/leaderboard')}>Leaderboard</Link>
               {!isAuthenticated && (
                 <div className="flex space-x-2 mt-3">
                   <Button variant="ghost" onClick={onLoginClick} size="sm">Login</Button>
